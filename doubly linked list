@@ -1,0 +1,129 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class MyCircularDeque {
+public:
+    struct Node{
+        int val;
+        Node* prev;
+        Node* next;
+        Node(int _val){
+            val=_val;
+            prev=next=NULL;
+        }
+    };
+    
+    int idx=0;
+    int N;
+    Node* front;
+    Node* rear;
+    MyCircularDeque(int k) {
+        N=k;
+        Node* newNode=new Node(-1);
+        front=rear=newNode;
+    }
+    
+    bool insertFront(int value) {
+        if(idx>=N) return false;
+        Node* newNode=new Node(value);
+        if(front->val==-1 and rear->val==-1){
+            front=newNode;
+            rear=newNode;
+        }
+        else{
+            newNode->next=front;
+            front->prev=newNode;
+            front=newNode;
+        }
+        idx++;
+        return true;
+        
+    }
+    
+    bool insertLast(int value) {
+        if(idx>=N) return false;
+        Node* newNode=new Node(value);
+        if(front->val==-1 and rear->val==-1){
+            front=newNode;
+            rear=newNode;
+        }
+        else{
+            newNode->prev=rear;
+            rear->next=newNode;
+            rear=newNode;
+        }
+        idx++;
+        return true;
+    }
+    
+    bool deleteFront() {
+        if(idx<=0) return 0;
+        if(idx==1){
+            Node* newNode=new Node(-1);
+            front=newNode;
+            rear=newNode;
+        }
+        else{
+            front=front->next;
+        }
+        idx--;
+        return true;
+    }
+    
+    bool deleteLast() {
+        if(idx<=0) return 0;
+        if(idx==1){
+            Node* newNode=new Node(-1);
+            front=newNode;
+            rear=newNode;
+        }
+        else{
+            rear=rear->prev;
+        }
+        idx--;
+        return true;
+    }
+    
+    int getFront() {
+        return front->val;
+    }
+    
+    int getRear() {
+        return rear->val;        
+    }
+    
+    bool isEmpty() {
+        return idx==0;
+    }
+    
+    bool isFull() {
+        return idx==N;
+    }
+};
+
+
+int main()
+{
+ // Your MyCircularDeque object will be instantiated and called as such:
+   MyCircularDeque* obj = new MyCircularDeque(4);
+   bool param_1 = obj->insertFront(6);
+      bool param_12 = obj->insertFront(4);
+
+   bool param_13 = obj->insertFront(7);
+
+   cout<<param_1;
+  bool param_2 = obj->insertLast(8);
+  cout<<endl<<param_2<<endl;
+   bool param_3 = obj->deleteFront();
+   bool param_4 = obj->deleteLast();
+   cout<<param_4<<endl;
+   int param_5 = obj->getFront();
+   cout<<param_5<<endl;
+   int param_6 = obj->getRear();
+   cout<<param_6<<endl;
+  bool param_7 = obj->isEmpty();
+ // * bool param_8 = obj->isFull();
+ }
+
+
+ 
